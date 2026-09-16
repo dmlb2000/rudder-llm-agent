@@ -16,11 +16,11 @@ NUM_TRAINERS="4"                   # trainers per node
 NUM_SAMPLER_PROCESSES="0"          # sampler processes per trainer; use 0
 QUEUE="debug"                    # SLURM queue
 
-# Paths
-LOGS_DIR="/path/to/logs"
-DATA_DIR="/path/to/datasets"
-PROJ_PATH="/path/to/rudder-gnn"
-PARTITION_DIR="/path/to/partitions"
+# Paths (using standard local structure: data/datasets and data/partitions)
+PROJ_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+LOGS_DIR="${PROJ_PATH}/logs"
+DATA_DIR="${PROJ_PATH}/data/datasets"
+PARTITION_DIR="${PROJ_PATH}/data/partitions"
 PARTITION_METHOD="metis"
 
 # Optional knobs

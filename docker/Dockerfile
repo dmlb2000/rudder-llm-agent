@@ -24,5 +24,11 @@ RUN /opt/conda/bin/conda env create -f env.yml && \
     /opt/conda/bin/conda init && \
     /opt/conda/bin/conda clean -a -y
 
+ENV PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+COPY . .
+
+RUN conda run -n llm-dgl-${TYPE} python3 launch.py --help
+
     # Activate the environment
 SHELL ["conda", "run", "-n", "llm-dgl-${TYPE}", "/bin/bash", "-c"]

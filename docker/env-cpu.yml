@@ -1,5 +1,6 @@
 name: llm-dgl-cpu
 channels:
+  - dglteam/label/th24_cpu
   - pytorch
   - conda-forge
   - defaults
@@ -16,47 +17,7 @@ dependencies:
   - scikit-learn=1.7.2
   - numba=0.66.0
   - pip
+  - dgl
   - pip:
     - --find-links https://download.pytorch.org/whl/torch/
     - pytorch-tabnet==4.1.0
-    - cmake>=3.18,<4
-    - cython<3
-    - filelock
-    - matplotlib
-    - networkx
-    - nltk
-    - nose
-    - numpy
-    - ogb
-    - pandas
-    - psutil
-    - pyarrow
-    - pydantic>=2.0
-    - pytest
-    - pyyaml
-    - rdflib
-    - requests[security]
-    - scikit-learn
-    - scipy
-    - torcheval
-    - torchmetrics
-    - torch_geometric
-    - tqdm
-    - boto3 # AWS SDK for python
-    - sphinx
-    - sphinx-gallery
-    - sphinx_rtd_theme
-    - sphinx_copybutton
-    - sphinxemoji
-    - nbsphinx
-    - nbsphinx-link
-    - pillow
-    - seaborn
-    - jupyter_http_over_ws
-    - ufmt
-    - clang-format
-    - pylint
-    - lintrunner
-    - jupyterlab
-    - ipywidgets
-    - expecttest

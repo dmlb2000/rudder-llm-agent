@@ -8,7 +8,7 @@ ARG TYPE=cuda121
 WORKDIR /app
 
 # Install conda
-RUN apt-get update && apt-get install -y wget bzip2 git build-essential make && \
+RUN apt-get update && apt-get install -y wget bzip2 git build-essential make psmisc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
@@ -23,20 +23,6 @@ COPY docker/env-${TYPE}.yml env.yml
 RUN /opt/conda/bin/conda env create -f env.yml && \
     /opt/conda/bin/conda init && \
     /opt/conda/bin/conda clean -a -y
-
-ENV PATH=/opt/conda/bin:$PATH
-
-RUN mkdir /opt/dgl
-WORKDIR /opt/dgl
-# clone dgl for version 2.5.x and install it
-RUN git clone -b 2.5.x https://github.com/dmlc/dgl.git . && \
-    git submodule update --init --recursive && \
-    if [ "${TYPE}" = "cpu" ] ; then USE_CUDA=OFF ; else USE_CUDA=ON; fi && \
-    conda init && . ~/.bashrc && conda activate llm-dgl-${TYPE} && \
-    mkdir build && cd build && \
-    cmake -DBUILD_TYPE=dev -DUSE_CUDA=${USE_CUDA} .. && \
-    make -j$(nproc) && make install && \
-    cd ../python && python setup.py install
 
     # Activate the environment
 SHELL ["conda", "run", "-n", "llm-dgl-${TYPE}", "/bin/bash", "-c"]

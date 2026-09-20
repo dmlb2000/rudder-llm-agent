@@ -773,7 +773,7 @@ def main():
                         --extra_envs LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH NCCL_DEBUG=INFO ",
     )
     args, udf_command = parser.parse_known_args()
-    assert len(udf_command) == 1, "Please provide user command line."
+    assert len(udf_command) == 1, f"Please provide user command line ({len(udf_command)})."
     assert (
         args.num_trainers is not None and args.num_trainers > 0
     ), "--num_trainers must be a positive number."

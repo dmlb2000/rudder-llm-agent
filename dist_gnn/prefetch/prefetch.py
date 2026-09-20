@@ -245,7 +245,7 @@ class PrefetchBuffer:
 
     def degree_based_prefetch(self):
         """Initialize the buffer with highest-degree halo nodes."""
-        halo_nodes_tensor = th.tensor(self.halo_nodes_rank)
+        halo_nodes_tensor = th.tensor(self.halo_nodes_rank).long()
         # Get the top fraction of nodes by degree
         self.buffer_length = int(len(self.halo_nodes_rank) * self.fraction)
         _, top_indices = th.topk(self.graph.in_degrees(halo_nodes_tensor), self.buffer_length)
@@ -320,7 +320,7 @@ class PrefetchBuffer:
             numba.set_num_threads(self.num_numba_threads - 1) # leave one thread for the main thread
             self.normal_score = update_normal_scores(self.halo_nodes_rank, missed_minibatch_nodes, self.normal_score)
         else:
-            mask = np.nonzero(np.in1d(missed_minibatch_nodes, self.halo_nodes_rank, kind='table'))[0]
+            mask = np.nonzero(np.in1d(missed_minibatch_nodes, self.halo_nodes_rank, kind='sort'))[0]
             self.normal_score[missed_minibatch_nodes[mask]] += 1
         update_score_end = time.time()
         return update_score_end - update_score_start
@@ -400,7 +400,7 @@ class PrefetchBuffer:
         """Track sampled/found remote-node counts for one minibatch."""
         self.num_remote_nodes_sampled = 0
         self.num_remote_nodes_found = 0
-        self.num_remote_nodes_sampled += np.count_nonzero(np.in1d(input_nodes_array, self.halo_nodes_rank, kind='table'))
+        self.num_remote_nodes_sampled += np.count_nonzero(np.in1d(input_nodes_array, self.halo_nodes_rank, kind='sort'))
         self.num_remote_nodes_found = len(hit_indices)
 
     def prefetch_with_eviction(self, input_nodes_array, batch_inputs, epoch, step):

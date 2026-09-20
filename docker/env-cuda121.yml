@@ -1,5 +1,6 @@
 name: llm-dgl-cuda121
 channels:
+  - dglteam/label/th24_cu121
   - pytorch
   - nvidia
   - conda-forge
@@ -16,48 +17,8 @@ dependencies:
   - xgboost=3.2.0
   - scikit-learn=1.7.2
   - numba=0.66.0
+  - dgl
   - pip
   - pip:
     - --find-links https://download.pytorch.org/whl/torch/
     - pytorch-tabnet==4.1.0
-    - cmake>=3.18,<4
-    - cython<3
-    - filelock
-    - matplotlib
-    - networkx
-    - nltk
-    - nose
-    - numpy
-    - ogb
-    - pandas
-    - psutil
-    - pyarrow
-    - pydantic>=2.0
-    - pytest
-    - pyyaml
-    - rdflib
-    - requests[security]
-    - scikit-learn
-    - scipy
-    - torcheval
-    - torchmetrics
-    - torch_geometric
-    - tqdm
-    - boto3 # AWS SDK for python
-    - sphinx
-    - sphinx-gallery
-    - sphinx_rtd_theme
-    - sphinx_copybutton
-    - sphinxemoji
-    - nbsphinx
-    - nbsphinx-link
-    - pillow
-    - seaborn
-    - jupyter_http_over_ws
-    - ufmt
-    - clang-format
-    - pylint
-    - lintrunner
-    - jupyterlab
-    - ipywidgets
-    - expecttest

@@ -1,2 +1,4 @@
 docker/Dockerfile
 logs
+.venv
+data

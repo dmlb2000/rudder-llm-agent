@@ -8,7 +8,7 @@ ARG TYPE=cuda121
 WORKDIR /app
 
 # Install conda
-RUN apt-get update && apt-get install -y wget bzip2 git build-essential make psmisc && \
+RUN apt-get update && apt-get install -y wget bzip2 git build-essential make psmisc curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \

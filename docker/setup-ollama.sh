@@ -2,7 +2,9 @@
 
 MODEL=${1:-gemma}
 
+eval "$(conda shell.bash hook)"
 set -x
+conda activate llm-dgl-cuda121
 # inside the running container.
 ollama serve &
 PID=$!
@@ -15,4 +17,9 @@ done
 echo "Ollama is ready!"
 
 ollama pull "$MODEL" # from the decision model argument
-kill $PID
+if ! kill $PID; then
+    echo "Failed to kill Ollama process."
+    exit 0
+fi
+echo "Ollama process terminated."
+exit 0
